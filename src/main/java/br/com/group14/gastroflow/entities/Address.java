@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,10 +22,16 @@ public class Address implements updatableFromDTO<AddressDTO> {
     private Long id;
 
     private String street;
+
     private String number;
+
     private String city;
+
+    @Size(min = 8, max = 8, message = "CEP must be exactly 8 characters long")
     private String cep;
+
     private String complement;
+
     private String state;
 
     public Address(AddressDTO addressDTO) {

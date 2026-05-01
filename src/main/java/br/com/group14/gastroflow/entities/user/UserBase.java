@@ -22,6 +22,8 @@ import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -39,15 +41,20 @@ public abstract class UserBase implements updatableFromDTO<UserBaseUpdateDTO> {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   protected Long id;
 
+  @NotBlank(message = "User must have attribute name")
   @Column(nullable = false)
   protected String name;
 
+  @Email
+  @NotBlank(message = "User must have attribute email")
   @Column(unique = true, nullable = false)
   protected String email;
 
+  @NotBlank(message = "User must have attribute login")
   @Column(unique = true, nullable = false)
   protected String login;
 
+  @NotBlank(message = "User must have attribute password")
   @Column(nullable = false)
   protected String password;
 

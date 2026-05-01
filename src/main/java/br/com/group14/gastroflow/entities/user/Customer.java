@@ -7,6 +7,8 @@ import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -22,6 +24,8 @@ import lombok.NoArgsConstructor;
 @PrimaryKeyJoinColumn(name = "user_id", referencedColumnName = "id")
 public class Customer extends UserBase {
 
+    @NotBlank(message = "Client must have attribute cpf")
+    @Size(min = 11, max = 11, message = "CPF must be exactly 11 characters long")
     @Column(unique = true)
     private String cpf;
 
