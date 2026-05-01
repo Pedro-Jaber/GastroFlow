@@ -6,6 +6,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -68,6 +69,18 @@ public class ControllerExceptionsHandler {
         return ResponseEntity
                 .status(status)
                 .body(new ValidationErrorDTO(List.of(message), status.value()));
+    }
+
+    @ExceptionHandler(InvalidDataAccessApiUsageException.class)
+    public ResponseEntity<ValidationErrorDTO> handlerInvalidDataAccessApiUsageException(
+            InvalidDataAccessApiUsageException e) {
+
+        logger.error("InvalidDataAccessApiUsageException: {}", e.getMessage());
+
+        var status = HttpStatus.BAD_REQUEST;
+        return ResponseEntity
+                .status(status)
+                .body(new ValidationErrorDTO(List.of(e.getMessage()), status.value()));
     }
 
     private String extractFriendlyMessage(DataIntegrityViolationException e) {
