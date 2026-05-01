@@ -7,13 +7,14 @@ import br.com.group14.gastroflow.dtos.reponse.CustomerResponseDTO;
 import br.com.group14.gastroflow.dtos.update.CustomerUpdateDTO;
 import br.com.group14.gastroflow.entities.user.Customer;
 import br.com.group14.gastroflow.repositories.CustomerRepository;
+import jakarta.validation.Validator;
 
 @Service
 public class CustomerService extends
         UserBaseService<Customer, CustomerRepository, CustomerResponseDTO, CustomerCreateDTO, CustomerUpdateDTO> {
 
-    public CustomerService(CustomerRepository repository) {
-        super(repository, "Customer");
+    public CustomerService(CustomerRepository repository, Validator validator) {
+        super(repository, "Customer", validator);
     }
 
     @Override

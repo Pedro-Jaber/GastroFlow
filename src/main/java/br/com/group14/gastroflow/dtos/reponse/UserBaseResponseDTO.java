@@ -14,7 +14,7 @@ public class UserBaseResponseDTO {
     private String login;
     private AddressDTO address;
 
-    public UserBaseResponseDTO(UserBase userBase) {
+    public UserBaseResponseDTO(UserBase<?> userBase) {
         this(
                 userBase.getId(),
                 userBase.getName(),

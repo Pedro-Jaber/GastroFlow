@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "customers")
 @DiscriminatorValue("CUSTOMER")
 @PrimaryKeyJoinColumn(name = "user_id", referencedColumnName = "id")
-public class Customer extends UserBase {
+public class Customer extends UserBase<CustomerUpdateDTO> {
 
     @NotBlank(message = "Client must have attribute cpf")
     @Size(min = 11, max = 11, message = "CPF must be exactly 11 characters long")
@@ -43,8 +43,9 @@ public class Customer extends UserBase {
         this.phone = customerUpdateDTO.getPhone();
     }
 
+    @Override
     public void updateFromDTO(CustomerUpdateDTO customerUpdateDTO) {
-        super.updateFromDTO(customerUpdateDTO);
+        super.baseUpdateFromDTO(customerUpdateDTO);
 
         if (customerUpdateDTO.getCpf() != null)
             this.cpf = customerUpdateDTO.getCpf();

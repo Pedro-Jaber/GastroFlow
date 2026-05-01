@@ -15,7 +15,7 @@ public class UserBaseUpdateDTO {
   protected String login;
   protected AddressDTO address;
 
-  public UserBaseUpdateDTO(UserBase user) {
+  public UserBaseUpdateDTO(UserBase<?> user) {
     this(user.getName(), user.getEmail(), user.getLogin(),
         new AddressDTO(user.getAddress()));
   }

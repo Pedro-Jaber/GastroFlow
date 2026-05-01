@@ -24,6 +24,7 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -35,7 +36,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "user_type", discriminatorType = DiscriminatorType.STRING)
-public abstract class UserBase implements updatableFromDTO<UserBaseUpdateDTO> {
+public abstract class UserBase<U extends UserBaseUpdateDTO> implements updatableFromDTO<U> {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,7 +46,7 @@ public abstract class UserBase implements updatableFromDTO<UserBaseUpdateDTO> {
   @Column(nullable = false)
   protected String name;
 
-  @Email
+  @Email(message = "User email must be a valid email address")
   @NotBlank(message = "User must have attribute email")
   @Column(unique = true, nullable = false)
   protected String email;
@@ -55,6 +56,7 @@ public abstract class UserBase implements updatableFromDTO<UserBaseUpdateDTO> {
   protected String login;
 
   @NotBlank(message = "User must have attribute password")
+  @Size(min = 8, message = "Password must be at least 8 characters long")
   @Column(nullable = false)
   protected String password;
 
@@ -88,8 +90,7 @@ public abstract class UserBase implements updatableFromDTO<UserBaseUpdateDTO> {
         null);
   }
 
-  @Override
-  public void updateFromDTO(UserBaseUpdateDTO userBaseUpdateDTO) {
+  public void baseUpdateFromDTO(UserBaseUpdateDTO userBaseUpdateDTO) {
 
     if (userBaseUpdateDTO.getName() != null)
       this.name = userBaseUpdateDTO.getName();

@@ -7,13 +7,14 @@ import br.com.group14.gastroflow.dtos.reponse.RestaurantOwnerResponseDTO;
 import br.com.group14.gastroflow.dtos.update.RestaurantOwnerUpdateDTO;
 import br.com.group14.gastroflow.entities.user.RestaurantOwner;
 import br.com.group14.gastroflow.repositories.RestaurantOwnerRepository;
+import jakarta.validation.Validator;
 
 @Service
 public class RestaurantOwnerService extends
         UserBaseService<RestaurantOwner, RestaurantOwnerRepository, RestaurantOwnerResponseDTO, RestaurantOwnerCreateDTO, RestaurantOwnerUpdateDTO> {
 
-    public RestaurantOwnerService(RestaurantOwnerRepository repository) {
-        super(repository, "Restaurant Owner");
+    public RestaurantOwnerService(RestaurantOwnerRepository repository, Validator validator) {
+        super(repository, "Restaurant Owner", validator);
     }
 
     @Override

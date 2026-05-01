@@ -1,6 +1,7 @@
 package br.com.group14.gastroflow.services;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,13 +14,16 @@ import br.com.group14.gastroflow.dtos.update.UserBaseUpdateDTO;
 import br.com.group14.gastroflow.entities.user.UserBase;
 import br.com.group14.gastroflow.services.exceptions.ResourceNotFoundException;
 import br.com.group14.gastroflow.services.exceptions.ValidationException;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validator;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public abstract class UserBaseService<E extends UserBase, R extends JpaRepository<E, Long>, ResponseDTO extends UserBaseResponseDTO, CreateDTO extends UserBaseCreateDTO, UpdateDTO extends UserBaseUpdateDTO> {
+public abstract class UserBaseService<E extends UserBase<UpdateDTO>, R extends JpaRepository<E, Long>, ResponseDTO extends UserBaseResponseDTO, CreateDTO extends UserBaseCreateDTO, UpdateDTO extends UserBaseUpdateDTO> {
 
     protected final R repository;
     private final String entityName;
+    private final Validator validator;
 
     // * Abstract methods
 
@@ -54,11 +58,9 @@ public abstract class UserBaseService<E extends UserBase, R extends JpaRepositor
         E user = findOrThrow(id);
         user.updateFromDTO(updateDTO);
 
-        // Validation
-        E userToSave = convertToEntity(convertToCreateDTO(user));
-        userToSave.setId(id);
+        validate(user);
 
-        E savedUser = repository.saveAndFlush(userToSave);
+        E savedUser = repository.saveAndFlush(user);
         return convertToResponseDTO(savedUser);
     }
 
@@ -75,9 +77,9 @@ public abstract class UserBaseService<E extends UserBase, R extends JpaRepositor
 
         entity.setPassword(dto.newPassword());
 
-        E toSave = convertToEntity(convertToCreateDTO(entity));
-        toSave.setId(id);
-        repository.saveAndFlush(toSave);
+        validate(entity);
+
+        repository.saveAndFlush(entity);
     }
 
     public void delete(Long id) {
@@ -91,4 +93,10 @@ public abstract class UserBaseService<E extends UserBase, R extends JpaRepositor
                 .orElseThrow(() -> new ResourceNotFoundException(entityName + " Not Found"));
     }
 
+    protected void validate(E entity) {
+        Set<ConstraintViolation<E>> violations = validator.validate(entity);
+        if (!violations.isEmpty()) {
+            throw new ValidationException(violations.stream().map(ConstraintViolation::getMessage).toList());
+        }
+    }
 }

@@ -24,13 +24,12 @@ public class UserBaseCreateDTO {
   protected String login;
 
   @NotBlank(message = "User must have attribute password")
-  // TODO: Add password strength validation
   protected String password;
 
   @Valid
   protected AddressDTO address;
 
-  public UserBaseCreateDTO(UserBase user) {
+  public UserBaseCreateDTO(UserBase<?> user) {
     this(user.getName(), user.getEmail(), user.getLogin(), user.getPassword(),
         new AddressDTO(user.getAddress()));
   }
