@@ -10,17 +10,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.group14.gastroflow.entities.user.UserBase;
-import br.com.group14.gastroflow.services.UserService;
+import br.com.group14.gastroflow.services.UserBaseService;
 
-@RestController
-@RequestMapping("/users")
+// @RestController
+// @RequestMapping("/users")
 public class UserBaseController {
 
     private static final Logger logger = LoggerFactory.getLogger(UserBaseController.class);
 
-    private final UserService userService;
+    private final UserBaseService userService;
 
-    public UserBaseController(UserService userService) {
+    public UserBaseController(UserBaseService userService) {
         this.userService = userService;
     }
 
