@@ -1,0 +1,15 @@
+springdoc:
+  # Path for the JSON/YAML documentation (Default: /v3/api-docs)
+  api-docs:
+    path: /api-docs
+    enabled: true
+  
+  # Configuration for Swagger UI (Default: /swagger-ui.html)
+  swagger-ui:
+    path: /swagger-ui
+    enabled: true
+    # Alphabetical sorting for endpoints and tags
+    operations-sorter: alpha
+    tags-sorter: alpha
+    try-it-out-enabled: true
+    filter: true
