@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import br.com.group14.gastroflow.entities.user.UserBase;
 
 @Repository
-public interface UserBaseRepository extends JpaRepository<UserBase, Long> {
+public interface UserBaseRepository extends JpaRepository<UserBase<?>, Long> {
 
+    UserBase<?> findByLogin(String login);
 }

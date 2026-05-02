@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import br.com.group14.gastroflow.controllers.CustomerController;
 import br.com.group14.gastroflow.dtos.exceptions.ResourceNotFoundDTO;
 import br.com.group14.gastroflow.dtos.exceptions.ValidationErrorDTO;
+import br.com.group14.gastroflow.services.exceptions.AuthValidationException;
 import br.com.group14.gastroflow.services.exceptions.ResourceNotFoundException;
 import br.com.group14.gastroflow.services.exceptions.ValidationException;
 
@@ -78,6 +79,16 @@ public class ControllerExceptionsHandler {
         logger.error("InvalidDataAccessApiUsageException: {}", e.getMessage());
 
         var status = HttpStatus.BAD_REQUEST;
+        return ResponseEntity
+                .status(status)
+                .body(new ValidationErrorDTO(List.of(e.getMessage()), status.value()));
+    }
+
+    @ExceptionHandler(AuthValidationException.class)
+    public ResponseEntity<ValidationErrorDTO> handlerAuthValidationException(
+            AuthValidationException e) {
+
+        var status = HttpStatus.UNAUTHORIZED;
         return ResponseEntity
                 .status(status)
                 .body(new ValidationErrorDTO(List.of(e.getMessage()), status.value()));
