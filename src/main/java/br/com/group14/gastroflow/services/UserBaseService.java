@@ -90,6 +90,8 @@ public abstract class UserBaseService<E extends UserBase<UpdateDTO>, R extends U
     }
 
     public void delete(Long id) {
+        findOrThrow(id);
+
         repository.deleteById(id);
     }
 
