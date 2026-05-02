@@ -5,13 +5,13 @@ import java.util.Set;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import br.com.group14.gastroflow.dtos.create.UserBaseCreateDTO;
 import br.com.group14.gastroflow.dtos.reponse.UserBaseResponseDTO;
 import br.com.group14.gastroflow.dtos.update.PasswordUpdateDTO;
 import br.com.group14.gastroflow.dtos.update.UserBaseUpdateDTO;
 import br.com.group14.gastroflow.entities.user.UserBase;
+import br.com.group14.gastroflow.repositories.UserBaseRepository;
 import br.com.group14.gastroflow.services.exceptions.ResourceNotFoundException;
 import br.com.group14.gastroflow.services.exceptions.ValidationException;
 import jakarta.validation.ConstraintViolation;
@@ -19,8 +19,9 @@ import jakarta.validation.Validator;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public abstract class UserBaseService<E extends UserBase<UpdateDTO>, R extends JpaRepository<E, Long>, ResponseDTO extends UserBaseResponseDTO, CreateDTO extends UserBaseCreateDTO, UpdateDTO extends UserBaseUpdateDTO> {
+public abstract class UserBaseService<E extends UserBase<UpdateDTO>, R extends UserBaseRepository<E>, ResponseDTO extends UserBaseResponseDTO, CreateDTO extends UserBaseCreateDTO, UpdateDTO extends UserBaseUpdateDTO> {
 
+    // * Attributes
     protected final R repository;
     private final String entityName;
     private final Validator validator;
@@ -46,6 +47,12 @@ public abstract class UserBaseService<E extends UserBase<UpdateDTO>, R extends J
                 .orElseThrow(() -> new ResourceNotFoundException(entityName + " Not Found"));
 
         return convertToResponseDTO(user);
+    }
+
+    public Page<ResponseDTO> findByName(String name, Pageable pageable) {
+        Page<E> usersPaged = repository.findByNameContainingIgnoreCase(name, pageable);
+        Page<ResponseDTO> usersDTOPage = usersPaged.map(this::convertToResponseDTO);
+        return usersDTOPage;
     }
 
     public ResponseDTO save(CreateDTO createDTO) {

@@ -49,6 +49,16 @@ public class CustomerController {
         return ResponseEntity.ok(customerDTO);
     }
 
+    @GetMapping("search/{name}")
+    public ResponseEntity<Page<CustomerResponseDTO>> getFindByName(
+            @PathVariable String name,
+            Pageable pageable) {
+        logger.info("GET  => /customers/search/{name} - Request: {}", pageable);
+        Page<CustomerResponseDTO> customers = customerService.findByName(name, pageable);
+
+        return ResponseEntity.ok(customers);
+    }
+
     @PostMapping
     public ResponseEntity<CustomerResponseDTO> post(
             @Valid @RequestBody CustomerCreateDTO customerCreateDTO) {

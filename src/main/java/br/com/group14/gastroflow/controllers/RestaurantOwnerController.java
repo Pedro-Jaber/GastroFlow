@@ -49,6 +49,16 @@ public class RestaurantOwnerController {
         return ResponseEntity.ok(restaurantOwnerDTO);
     }
 
+    @GetMapping("search/{name}")
+    public ResponseEntity<Page<RestaurantOwnerResponseDTO>> getFindByName(
+            @PathVariable String name,
+            Pageable pageable) {
+        logger.info("GET  => /restaurant-owners/search/{name} - Request: {}", pageable);
+        Page<RestaurantOwnerResponseDTO> restaurantOwners = restaurantOwnerService.findByName(name, pageable);
+
+        return ResponseEntity.ok(restaurantOwners);
+    }
+
     @PostMapping
     public ResponseEntity<RestaurantOwnerResponseDTO> post(
             @Valid @RequestBody RestaurantOwnerCreateDTO restaurantOwnerCreateDTO) {

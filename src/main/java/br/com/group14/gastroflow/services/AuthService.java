@@ -11,7 +11,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class AuthService {
 
-    private final UserBaseRepository userBaseRepository;
+    private final UserBaseRepository<UserBase<?>> userBaseRepository;
 
     public void login(String login, String password) {
 
