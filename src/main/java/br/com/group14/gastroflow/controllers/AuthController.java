@@ -14,7 +14,7 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("api/v1/auth")
 @AllArgsConstructor
 public class AuthController {
 
