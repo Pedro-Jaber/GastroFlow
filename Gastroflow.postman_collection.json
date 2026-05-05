@@ -1,0 +1,564 @@
+{
+  "info": {
+    "_postman_id": "c94902e0-5839-4bf4-9e65-388d4b8d3579",
+    "name": "Gastroflow",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "39750032"
+  },
+  "item": [
+    {
+      "name": "/customers",
+      "item": [
+        {
+          "name": "/customers",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{baseURL}}/customers?page=0&size=10",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "customers"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/customers/{id}",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{baseURL}}/customers/3",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "customers",
+                "3"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/customers",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Carlos Pereira\",\r\n    \"email\": \"carlos.pereira@email.com\",\r\n    \"login\": \"carlos.pereira\",\r\n    \"password\": \"senha456\",\r\n    \"address\": {\r\n        \"street\": \"Avenida Paulista\",\r\n        \"number\": \"1500\",\r\n        \"city\": \"São Paulo\",\r\n        \"cep\": \"01310200\",\r\n        \"complement\": \"Sala 305\",\r\n        \"state\": \"SP\"\r\n    },\r\n    \"cpf\": \"14796325845\",\r\n    \"phone\": \"11987654321\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseURL}}/customers",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "customers"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/customers [Data Conflict]: Email/Login already registered",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Ana Lucia Souza\",\r\n    \"email\": \"ana.souza@email.com\",\r\n    \"login\": \"ana.souza\",\r\n    \"password\": \"senha123\",\r\n    \"cpf\": \"95145675325\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseURL}}/customers",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "customers"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/customers [Validation Error]: Missing fields",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Juliana Costa\",\r\n    //\"email\": \"juliana.costa@email.com\",\r\n    //\"login\": \"juliana.costa\",\r\n    \"password\": \"senha789\",\r\n    \"address\": {\r\n        \"street\": \"Rua XV de Novembro\",\r\n        \"number\": \"456\",\r\n        \"city\": \"Curitiba\",\r\n        \"cep\": \"80020000\",\r\n        \"complement\": \"Casa\",\r\n        \"state\": \"PR\"\r\n    },\r\n    \"cpf\": \"33344455566\",\r\n    \"phone\": \"41999887766\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseURL}}/customers",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "customers"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/customers/{id}",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  //\"name\":\"userTest2\"\r\n  //\"email\":\"carlos.souza@example.com\",\r\n  //\"login\":\"carloshs\",\r\n  //\"address\": {\r\n    //\"street\": \"Rua das Flores 22\"\r\n    //\"number\": \"123\",2\r\n    //\"city\": \"brasília\",\r\n    //\"cep\": \"12345678\",\r\n    //\"complement\": \"casa\",\r\n    //\"state\": \"DF\"\r\n  //},\r\n  \"cpf\":\"27186532001\",\r\n  \"phone\":\"5562912341234\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseURL}}/customers/3",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "customers",
+                "3"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/customers/{id} [Business Rules Violation]",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\":\"\",\r\n  //\"email\":\"carlos.souza@example.com\",\r\n  \"login\":\"ana.souza\",\r\n  //\"address\": {\r\n    //\"street\": \"Rua das Flores 22\"\r\n    //\"number\": \"123\",2\r\n    //\"city\": \"brasília\",\r\n    //\"cep\": \"12345678\",\r\n    //\"complement\": \"casa\",\r\n    //\"state\": \"DF\"\r\n  //},\r\n  \"cpf\":\"27186\"\r\n  //\"phone\":\"5562912341234\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseURL}}/customers/3",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "customers",
+                "3"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/customers/{id}/password",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"currentPassword\":\"senha123\",\r\n    \"newPassword\": \"123qwe!@\",\r\n    \"confirmPassword\": \"123qwe!@\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseURL}}/customers/1/password",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "customers",
+                "1",
+                "password"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/customers/{id}/password [Incorrect Pasword]",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    //\"currentPassword\":\"password456\",\r\n    \"currentPassword\":\"password45\",\r\n    \"newPassword\": \"123qwe!@\",\r\n    \"confirmPassword\": \"123qwe!@\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseURL}}/customers/3/password",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "customers",
+                "3",
+                "password"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/customers/{id}",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{baseURL}}/customers/2",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "customers",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/customers/search/{name}",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/customers/search/Ana Souza",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "customers",
+                "search",
+                "Ana Souza"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "/restaurant-owners",
+      "item": [
+        {
+          "name": "/restaurant-owners",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{baseURL}}/restaurant-owners?page=0&size=10",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "restaurant-owners"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/restaurant-owners/{id}",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{baseURL}}/restaurant-owners/17",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "restaurant-owners",
+                "17"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/restaurant-owners",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\":\"Eduardo Ribeiro Costa\",\r\n  \"email\":\"eduardo.costa@grillhouse.com.br\",\r\n  \"login\":\"ecosta\",\r\n  \"password\":\"Grill#2025\",\r\n  \"address\": {\r\n    \"street\": \"QSA 12 Lote 08\",\r\n    \"number\": \"8\",\r\n    \"city\": \"Taguatinga\",\r\n    \"cep\": \"72015120\",\r\n    \"complement\": \"\",\r\n    \"state\": \"DF\"\r\n  },\r\n  \"cpfCnpj\":\"19384756000177\",\r\n  \"phone\":\"5561991122334\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseURL}}/restaurant-owners",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "restaurant-owners"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/restaurant-owners/{id}",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\":\"Eduardo Ribeiro Costa da Silva\"\r\n  //\"email\":\"testEmail@test.com\",\r\n  //\"login\":\"login\",\r\n  //\"address\": {\r\n  //  \"street\": \"rua teste\",\r\n  //  \"number\": \"123\",\r\n  //  \"city\": \"brasília\",\r\n  //  \"cep\": \"12345678\",\r\n  //  \"complement\": \"casa\",\r\n  //  \"state\": \"DF\"\r\n  //},\r\n  //\"cpf\":\"12345678912\",\r\n  //\"phone\":\"5561912341234\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseURL}}/restaurant-owners/21",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "restaurant-owners",
+                "21"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/restaurant-owners/{id}/password",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"currentPassword\":\"@Grill#2025\",\r\n    \"newPassword\": \"@rill#2025\",\r\n    \"confirmPassword\": \"@Grill#2025\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseURL}}/restaurant-owners/21/password",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "restaurant-owners",
+                "21",
+                "password"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/restaurant-owners/{id}",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{baseURL}}/restaurant-owners/20",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "restaurant-owners",
+                "20"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/restaurant-owners/search/{name}",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/restaurant-owners/search/a?page=0&size=10",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "restaurant-owners",
+                "search",
+                "a"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "/auth",
+      "item": [
+        {
+          "name": "/auth/login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"login\":\"bomsabor\",\r\n    \"password\":\"pass1!!23\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseURL}}/auth/login",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/auth/login [Incorrect Pasword]",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"login\":\"cantinanonna\",\r\n    \"password\":\"abc123qw\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseURL}}/auth/login",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseURL",
+      "value": ""
+    }
+  ]
+}
