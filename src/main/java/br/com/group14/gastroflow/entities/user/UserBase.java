@@ -2,6 +2,7 @@ package br.com.group14.gastroflow.entities.user;
 
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import br.com.group14.gastroflow.dtos.create.UserBaseCreateDTO;
@@ -66,6 +67,7 @@ public abstract class UserBase<U extends UserBaseUpdateDTO> implements updatable
 
   @Column(nullable = false)
   @UpdateTimestamp
+  @ColumnDefault("CURRENT_TIMESTAMP")
   private LocalDateTime updatedAt;
 
   public UserBase(UserBaseCreateDTO userBaseCreateDTO) {
