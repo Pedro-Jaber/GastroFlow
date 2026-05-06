@@ -38,7 +38,7 @@ Nesta fase o foco é a **gestão de usuários**, contemplando dois perfis: **Cli
 1. **Clonar e entrar no projeto:**
 
    ```bash
-   git clone <url-do-repositorio>
+   git clone https://github.com/Pedro-Jaber/GastroFlow.git
    cd gastroflow
    ```
 
