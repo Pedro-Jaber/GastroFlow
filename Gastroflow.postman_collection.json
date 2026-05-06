@@ -558,7 +558,7 @@
   "variable": [
     {
       "key": "baseURL",
-      "value": ""
+      "value": "http://localhost:8080/api/v1"
     }
   ]
 }
