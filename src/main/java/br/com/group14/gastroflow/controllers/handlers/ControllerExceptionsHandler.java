@@ -15,7 +15,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import br.com.group14.gastroflow.controllers.CustomerController;
 import br.com.group14.gastroflow.services.exceptions.AuthValidationException;
 import br.com.group14.gastroflow.services.exceptions.ResourceNotFoundException;
 import br.com.group14.gastroflow.services.exceptions.ValidationException;
@@ -24,7 +23,7 @@ import jakarta.validation.ConstraintViolationException;
 @ControllerAdvice
 public class ControllerExceptionsHandler {
 
-    private static final Logger logger = LoggerFactory.getLogger(CustomerController.class);
+    private static final Logger logger = LoggerFactory.getLogger(ControllerExceptionsHandler.class);
     private static final String ERROR_BASE_URI = "/errors/";
 
     // ── Validação de negócio ────────────────────────────────────────────────
